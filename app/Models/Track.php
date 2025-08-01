@@ -12,11 +12,12 @@ class Track extends Model
 
     protected $fillable = [
         'name',
+        'filename',
         'category'
     ];
 
     public function category(){
         return $this->belongsTo(TrackCategory::class);
-    };
+    }
 
 }
