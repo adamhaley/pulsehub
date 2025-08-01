@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreTrackRequest;
 use App\Http\Requests\UpdateTrackRequest;
 use App\Models\Track;
@@ -14,6 +15,8 @@ class TrackController extends Controller
     public function index()
     {
         //
+        $tracks = Track::all();
+        return view('track.index', compact('tracks'));
     }
 
     /**
@@ -22,6 +25,7 @@ class TrackController extends Controller
     public function create()
     {
         //
+        return view('track.create');
     }
 
     /**
@@ -30,6 +34,12 @@ class TrackController extends Controller
     public function store(StoreTrackRequest $request)
     {
         //
+        if($request->has('id')){
+            $track = Track::find($request->input('id'));
+        }else{
+            $track = Track::create( $request->validated());
+        }
+        return redirect()->route('track.show', $track);
     }
 
     /**
@@ -38,14 +48,16 @@ class TrackController extends Controller
     public function show(Track $track)
     {
         //
+        return view('track.show', compact('track'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Track $track)
+    public function edit( Track $track )
     {
         //
+        return view('track.edit', compact('track'));
     }
 
     /**
@@ -54,6 +66,14 @@ class TrackController extends Controller
     public function update(UpdateTrackRequest $request, Track $track)
     {
         //
+        try{
+
+            $track->update( $request->validated());
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+        return redirect('track.show',[$track]);
+
     }
 
     /**

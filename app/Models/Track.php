@@ -13,7 +13,7 @@ class Track extends Model
     protected $fillable = [
         'name',
         'filename',
-        'category'
+        'category_id'
     ];
 
     public function category(){

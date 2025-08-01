@@ -11,7 +11,7 @@ class UpdateTrackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,8 @@ class UpdateTrackRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|string|max:255',
+            'filename' => 'required|string|max:255',
         ];
     }
 }
