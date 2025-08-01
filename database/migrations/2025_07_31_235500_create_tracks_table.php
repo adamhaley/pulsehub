@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('filename');
-            $table->foreign('category_id')->references('id')->on('track_category');
+            $table->foreignId('category_id')->references('id')->on('track_categories');
             $table->timestamps();
         });
     }
